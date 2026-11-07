@@ -9,3 +9,4 @@ Marcas e personagens pertencem aos seus donos; projeto de fã, sem fins comercia
 - [Simple Icons](https://simpleicons.org), CC0, e [Arcticons](https://arcticons.onnno.nl), via Iconify.
 - Wikimedia Commons: Itaú (CC0); Bradesco, Petrobras, Skol, Brahma, LEGO e Tiffany & Co. (domínio público, marcas registradas).
 - Guaraná Antarctica: "Guarana-antarctica 2020.svg", Wikimedia Commons, CC BY-SA 4.0, adaptado para uma cor.
+- Escudos dos times: Wikimedia Commons, domínio público (marcas registradas dos clubes).
