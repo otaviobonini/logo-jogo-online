@@ -60,9 +60,13 @@ input[type=text]{width:100%;height:58px;padding:0 14px;border:3px solid var(--li
 .time i{display:block;height:100%;background:var(--on);transform-origin:left}
 .rtop{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:14px max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));font:700 .85rem var(--mono)}
 .secs{font:700 2.1rem/1 var(--mono);font-variant-numeric:tabular-nums}
-.rmid{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));width:100%;max-width:980px;margin:0 auto}
-.rmid h2{font-size:clamp(2.9rem,12vw,7.6rem);line-height:.9;letter-spacing:-.04em;font-weight:800;margin:0;text-wrap:balance;overflow-wrap:anywhere}
-.mark{width:clamp(56px,13vh,120px);height:clamp(56px,13vh,120px);background:currentColor;flex:none;margin-bottom:10px;-webkit-mask:var(--logo) left center/contain no-repeat;mask:var(--logo) left center/contain no-repeat}
+.rmid{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:12px;padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));width:100%;max-width:980px;margin:0 auto}
+.rmid h2{font-size:clamp(2.5rem,10vw,6.6rem);line-height:.9;letter-spacing:-.04em;font-weight:800;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+.tile{flex:none;width:clamp(112px,21vh,200px);aspect-ratio:1;max-width:100%;background:var(--on);padding:clamp(12px,2.4vh,24px);display:grid}
+.mark{width:100%;height:100%;background:var(--c);-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat}
+.tile.sm{width:clamp(52px,7vw,84px);padding:8px;align-self:flex-start;margin-bottom:8px}
+.rtxt{min-width:0;display:grid;gap:4px}
+@media(min-width:720px){.rmid{flex-direction:row;align-items:center;justify-content:flex-start;gap:28px}}
 .rmid p{font-size:clamp(1.2rem,4vw,1.9rem);margin:0;font-weight:500}
 .rbot{width:100%;max-width:980px;margin:0 auto;display:grid;gap:10px;padding:0 max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
 .sl{display:grid;grid-template-columns:88px 1fr;gap:10px;align-items:center;font:700 .74rem var(--mono);letter-spacing:.06em;text-transform:uppercase}
@@ -95,7 +99,12 @@ input[type=range]::-moz-range-thumb{width:18px;height:40px;background:#fff;borde
   .band{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;transform-origin:left;gap:2px 12px;padding:10px 16px;animation-name:rise-x;align-content:center}
   .band.orig{flex-direction:column;align-items:flex-start;justify-content:center}
   .band .tag{margin:0;align-self:center}
+  .band .tile.sm{width:46px;padding:6px;margin:0;align-self:center}
   .band.orig .tag{align-self:flex-start}
+  .band b{flex:1 1 auto;min-width:0}
+  .band.orig{flex-wrap:nowrap;gap:4px}
+  .band.orig b{flex:none}
+  .band.orig .tile.sm{align-self:flex-start;margin-bottom:4px}
   .band small{flex-basis:100%}
 }
 @keyframes rise-x{from{transform:scaleX(0)}}
@@ -160,7 +169,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:40px;background:#fff;borde
 <section id="round" hidden>
   <div class="time"><i id="rBar"></i></div>
   <div class="rtop"><span id="rNum"></span><span class="secs" id="rSecs" aria-live="off"></span></div>
-  <div class="rmid"><div class="mark" id="rMark" hidden></div><h2 id="rBrand"></h2><p id="rName"></p></div>
+  <div class="rmid"><div class="tile"><div class="mark" id="rMark"></div></div><div class="rtxt"><h2 id="rBrand"></h2><p id="rName"></p></div></div>
   <div class="rbot">
     <div class="who" id="rWho"></div>
     <label class="sl"><span>Matiz</span><input type="range" id="sH" min="0" max="360" step="1" aria-label="Matiz"></label>
@@ -228,7 +237,8 @@ const LOGO_SVG={"99":"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48
 const PART={shirt:"M8 3 3 6l2 5 3-1v11h8V10l3 1 2-5-5-3c-1 2-7 2-8 0z",dress:"M9 2h6l-1 5 5 14H5l5-14z",cap:"M3 15c0-6 4-9 9-9s8 3 8 8H3zM12 15h10c0 2-1 3-3 3h-7z",drop:"M12 2c4 6 7 9 7 13a7 7 0 0 1-14 0c0-4 3-7 7-13z"};
 const svgUrl=x=>"data:image/svg+xml,"+encodeURIComponent(x);
 const partOf=c=>/camiseta|suéter/.test(c)?"shirt":/vestido/.test(c)?"dress":/boné/.test(c)?"cap":"drop";
-const logoUrl=(n,c)=>LOGO_SVG[n]?svgUrl(LOGO_SVG[n]):LOGO[n]?LOGO_CDN+LOGO[n]+".svg":svgUrl(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="${PART[partOf(c||"")]}"/></svg>`);
+const thick=x=>x.replace(/ stroke-width="[^"]*"/g,"").replace(/stroke="#000"/g,'stroke="#000" stroke-width="2.2"');
+const logoUrl=(n,c)=>LOGO_SVG[n]?svgUrl(thick(LOGO_SVG[n])):LOGO[n]?LOGO_CDN+LOGO[n]+".svg":svgUrl(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="${PART[partOf(c||"")]}"/></svg>`);
 
 /* ---- Cor ---- */
 const hex2rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
@@ -362,7 +372,7 @@ function renderRound(){
     $("#sH").value=cur.h;$("#sS").value=cur.s;$("#sV").value=cur.v;}
   $("#rNum").textContent=`Rodada ${S.round+1} de ${S.n}`;
   $("#rBrand").textContent=t[0];
-  const lg=logoUrl(t[0],t[1]),mk=$("#rMark");mk.hidden=!lg;if(lg)mk.style.setProperty("--logo",`url("${lg}")`);$("#rName").textContent=t[1];
+  $("#rMark").style.setProperty("--logo",`url("${logoUrl(t[0],t[1])}")`);$("#rName").textContent=t[1];
   const done=!!S.guesses[me]||lockedKey===key;
   ["#sH","#sS","#sV"].forEach(s=>$(s).disabled=done);
   const b=$("#bLock");b.disabled=done;b.textContent=done?"Cravada. Esperando os outros…":"Cravar essa cor";
@@ -379,10 +389,10 @@ function renderReveal(){
   const key=S.game+":"+S.round;
   if(shownKey!==key){shownKey=key;
     const t=target(),rows=S.res[S.round]||[],rgb=hex2rgb(t[2]),on=onColor(rgb);
-    const orig=`<div class="band orig" style="background:${t[2]};color:${on}"><div class="mark" style="--logo:url(&quot;${logoUrl(t[0],t[1])}&quot;)"></div><small>Original</small><b>${esc(t[0])}</b><small>${t[2]} · ${hsbText(rgb)}</small></div>`;
+    const orig=`<div class="band orig" style="background:${t[2]};color:${on}"><div class="tile sm" style="--on:${on};--c:${t[2]}"><div class="mark" style="--logo:url(&quot;${logoUrl(t[0],t[1])}&quot;)"></div></div><small>Original</small><b>${esc(t[0])}</b><small>${t[2]} · ${hsbText(rgb)}</small></div>`;
     const bands=rows.map((r,i)=>{const fg=onColor(hsv2rgb(...r.hsv));
       const tag=i===0&&rows.length>1?`<span class="tag" style="--tagbg:${fg};--tagfg:${r.hex}">${r.pts>=97?"Na mosca":"Mais perto"}</span>`:(i===0&&r.pts>=97?`<span class="tag" style="--tagbg:${fg};--tagfg:${r.hex}">Na mosca</span>`:"");
-      return`<div class="band" style="background:${r.hex};color:${fg};animation-delay:${(i+1)*.09}s">${tag}<b>${esc(nameOf(r.id))}</b><span class="p">${r.pts.toFixed(1)}</span><small>${r.hex} · total ${S.totals[r.id].toFixed(1)}</small></div>`}).join("");
+      return`<div class="band" style="background:${r.hex};color:${fg};animation-delay:${(i+1)*.09}s"><div class="tile sm" style="--on:${fg};--c:${r.hex}"><div class="mark" style="--logo:url(&quot;${logoUrl(t[0],t[1])}&quot;)"></div></div>${tag}<b>${esc(nameOf(r.id))}</b><span class="p">${r.pts.toFixed(1)}</span><small>${r.hex} · total ${S.totals[r.id].toFixed(1)}</small></div>`}).join("");
     const none=rows.length?"":`<div class="band" style="background:#222;color:#fff"><b>Ninguém cravou</b></div>`;
     $("#vBands").innerHTML=orig+bands+none;
   }
