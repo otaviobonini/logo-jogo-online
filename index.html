@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -64,7 +64,9 @@ input[type=text]{width:100%;height:58px;padding:0 14px;border:3px solid var(--li
 .rmid h2{font-size:clamp(2.1rem,8.6vw,6rem);line-height:.9;letter-spacing:-.04em;font-weight:800;margin:0;text-wrap:balance;overflow-wrap:anywhere}
 .tile{flex:none;width:clamp(112px,21vh,200px);aspect-ratio:1;max-width:100%;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.14);padding:clamp(12px,2.4vh,24px);display:grid}
 .mark{width:100%;height:100%;background:var(--c);-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat}
-#rTile{width:min(62vw,31vh);padding:clamp(14px,3.2vh,34px);transition:background-color .2s}
+.toon-art{width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.toon-art img,.toon-art canvas{max-width:100%;max-height:100%;object-fit:contain;display:block}
+#rTile{width:min(62vw,31vh);padding:clamp(14px,3.2vh,34px);transition:background-color .2s}#rTile.toon-big{width:min(82vw,58vh);padding:clamp(6px,1.5vh,16px)}
 #rMark{background:none}
 #rFill{display:block;width:100%;height:100%}
 @media(min-width:720px){#rTile{width:min(36vw,40vh)}}
@@ -98,6 +100,15 @@ input[type=range]::-moz-range-thumb{width:18px;height:40px;background:#fff;borde
 .band .p{font:700 clamp(1.5rem,4.4vw,3.2rem)/1 var(--mono);font-variant-numeric:tabular-nums}
 .band small{font:500 .74rem var(--mono)}
 .tag{align-self:flex-start;padding:5px 9px;font:700 .72rem var(--mono);letter-spacing:.06em;background:var(--tagbg);color:var(--tagfg);text-transform:uppercase;margin-bottom:4px}
+.cmp{flex:none;display:grid;grid-template-columns:1fr 1fr;gap:3px;background:#fff;color:#fff;border-bottom:3px solid #fff}
+.cmp>div{display:grid;gap:9px;padding:16px 14px;justify-items:center;text-align:center;background:var(--ink)}
+.cmp h4{margin:0;font:800 .74rem var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.cmp .ph{width:100%;max-width:168px;aspect-ratio:1;background:#fff;padding:10px;display:grid;place-items:center}
+.cmp .ph canvas{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.cmp .sw{width:100%;max-width:168px;height:16px}
+.cmp small{font:500 .72rem var(--mono);opacity:.8}
+.cmp b{font:800 1.05rem var(--mono);line-height:1}
+@media(max-width:720px){.cmp .ph{max-width:104px}.cmp>div{padding:10px 8px;gap:6px}.cmp .sw{max-width:104px;height:12px}}
 .rfoot{flex:none;display:flex;gap:12px;align-items:center;justify-content:space-between;background:var(--ink);color:#fff;
   padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));font:700 .86rem var(--mono)}
 .rfoot button{height:46px;padding:0 18px;border:0;background:#fff;color:var(--ink);font:800 1rem var(--display);border-radius:0;flex:none}
@@ -107,7 +118,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:40px;background:#fff;borde
   .band{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;transform-origin:left;gap:2px 12px;padding:10px 16px;animation-name:rise-x;align-content:center}
   .band.orig{flex-direction:column;align-items:flex-start;justify-content:center}
   .band .tag{margin:0;align-self:center}
-  .band #rTile{width:min(62vw,31vh);padding:clamp(14px,3.2vh,34px);transition:background-color .2s}
+  .band #rTile{width:min(62vw,31vh);padding:clamp(14px,3.2vh,34px);transition:background-color .2s}#rTile.toon-big{width:min(82vw,58vh);padding:clamp(6px,1.5vh,16px)}
 #rMark{background:none}
 #rFill{display:block;width:100%;height:100%}
 @media(min-width:720px){#rTile{width:min(36vw,40vh)}}
@@ -120,7 +131,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:40px;background:#fff;borde
   .band b{flex:1 1 auto;min-width:0}
   .band.orig{flex-wrap:nowrap;gap:4px}
   .band.orig b{flex:none}
-  .band.orig #rTile{width:min(62vw,31vh);padding:clamp(14px,3.2vh,34px);transition:background-color .2s}
+  .band.orig #rTile{width:min(62vw,31vh);padding:clamp(14px,3.2vh,34px);transition:background-color .2s}#rTile.toon-big{width:min(82vw,58vh);padding:clamp(6px,1.5vh,16px)}
 #rMark{background:none}
 #rFill{display:block;width:100%;height:100%}
 @media(min-width:720px){#rTile{width:min(36vw,40vh)}}
@@ -193,7 +204,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:40px;background:#fff;borde
 <section id="round" hidden>
   <div class="time"><i id="rBar"></i></div>
   <div class="rtop"><span id="rNum"></span><span class="secs" id="rSecs" aria-live="off"></span></div>
-  <div class="rmid"><div class="tile" id="rTile"><div class="mark" id="rMark"><canvas id="rFill" width="400" height="400"></canvas></div><div class="crest" id="rCrest" hidden></div></div><div class="rtxt"><h2 id="rBrand"></h2><p id="rName"></p></div></div>
+  <div class="rmid"><div class="tile" id="rTile"><div class="mark" id="rMark"><canvas id="rFill" width="400" height="400"></canvas></div><div class="crest" id="rCrest" hidden></div><div class="toon-art" id="rToon" hidden></div></div><div class="rtxt"><h2 id="rBrand"></h2><p id="rName"></p></div></div>
   <div class="rbot">
     <div class="who" id="rWho"></div>
     <label class="sl"><span>Matiz</span><input type="range" id="sH" min="0" max="360" step="1" aria-label="Matiz"></label>
@@ -205,6 +216,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:40px;background:#fff;borde
 </section>
 
 <section id="reveal" hidden>
+  <div class="cmp" id="vCmp" hidden></div>
   <div class="bands" id="vBands"></div>
   <div class="rfoot"><span id="vInfo"></span><button id="bNext" type="button" hidden>Próxima</button></div>
 </section>
@@ -249,17 +261,25 @@ const BRANDS=[
 ["Subway","verde","#008C15","mundo"],["Visa","azul","#1A1F71","mundo"],["T-Mobile","magenta","#E20074","mundo"],
 ["Ferrari","vermelho","#D40000","mundo"],["UPS","marrom","#644117","mundo"],["John Deere","verde","#367C2B","mundo"],
 ["Bob Esponja","amarelo do corpo","#FFF200","toon"],["Patrick Estrela","rosa do corpo","#F49AC1","toon"],["Homer Simpson","amarelo da pele","#FED90F","toon"],
-["Marge Simpson","azul do cabelo","#2A6FDB","toon"],["Bart Simpson","laranja da camiseta","#F26522","toon"],["Shrek","verde da pele","#9DB83A","toon"],
-["Mike Wazowski","verde do corpo","#B4D335","toon"],["Sulley","azul do pelo","#29B8CE","toon"],["Pikachu","amarelo do corpo","#F6D32D","toon"],
-["Mario","vermelho do boné","#E52521","toon"],["Luigi","verde do boné","#00A651","toon"],["Sonic","azul do corpo","#1F4FBF","toon"],
-["Smurfs","azul da pele","#4FA8E0","toon"],["Hulk","verde da pele","#5BA02E","toon"],["Elsa","azul do vestido","#A7DDF2","toon"],
-["Dory","azul do corpo","#1E6FD9","toon"],["Nemo","laranja do corpo","#FF7F11","toon"],["Barney","roxo do corpo","#7B3FA0","toon"],
-["Pantera Cor-de-Rosa","rosa do corpo","#F19CBB","toon"],["Scooby-Doo","marrom do pelo","#A8672C","toon"],["Salsicha","verde da camiseta","#9BBB3B","toon"],
-["Velma","laranja do suéter","#F2811D","toon"],["Mônica","vermelho do vestido","#E3202B","toon"],["Cebolinha","verde da camiseta","#29A745","toon"],
-["Cascão","amarelo da camiseta","#F7C600","toon"],["Lindinha","azul do vestido","#8FD3F4","toon"],["Florzinha","rosa do vestido","#F59BC1","toon"],
-["Docinho","verde do vestido","#8CD17D","toon"],["Stitch","azul do corpo","#4C7FC7","toon"],["Perry","turquesa do corpo","#00A6A6","toon"],
-["Garfield","laranja do pelo","#F58220","toon"],["Gumball","azul do pelo","#5BBDE6","toon"],["Darwin","laranja do corpo","#F39A2B","toon"],
-["Minions","amarelo do corpo","#FCE029","toon"]
+["Shrek","verde da pele","#9DB83A","toon"],
+["Pikachu","amarelo do corpo","#F6D32D","toon"],
+
+
+
+["Pantera Cor-de-Rosa","rosa do corpo","#F19CBB","toon"],["Scooby-Doo","marrom do pelo","#A8672C","toon"],
+
+
+
+["Gumball","azul do pelo","#5BBDE6","toon"],["Darwin","laranja do corpo","#F39A2B","toon"],
+
+["Finn","branco do chap\u00e9u","#F5F5F5","toon"],["Jake","amarelo do corpo","#F5C518","toon"],["BMO","verde-ciano do corpo","#59BFA8","toon"],
+["Princesa Jujuba","rosa do corpo","#F4A0B4","toon"],["Rei Gelado","azul da roupa","#3D7EAA","toon"],
+["Gwen Tennyson","ruivo do cabelo","#CE3411","toon"],["Heatblast","laranja do fogo","#FF6600","toon"],
+["Quatro Bra\u00e7os","vermelho do corpo","#CC2200","toon"],["Diamondhead","verde do cristal","#7FD19B","toon"],
+["Anais","rosa do corpo","#F4A7B9","toon"],
+["Dexter","laranja do cabelo","#FE4902","toon"],["Johnny Bravo","loiro do cabelo","#FFD700","toon"],["Mickey Mouse","preto do corpo","#111111","toon"],
+["Naruto","laranja do uniforme","#FF5500","toon"],["Pateta","verde do chap\u00e9u","#2D8A47","toon"],["Pernalonga","cinza do pelo","#A8A9AD","toon"],
+["Tom","cinza-azul do pelo","#607B8B","toon"],["Woody","amarelo da camisa","#F5D020","toon"]
 ];
 /* Logos reais do pacote Simple Icons, carregados do CDN e pintados na cor de contraste */
 const LOGO_CDN="https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/";
@@ -269,7 +289,8 @@ const TEAM_SVG={"Coritiba":"<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlin
 const PART={shirt:"M8 3 3 6l2 5 3-1v11h8V10l3 1 2-5-5-3c-1 2-7 2-8 0z",dress:"M9 2h6l-1 5 5 14H5l5-14z",cap:"M3 15c0-6 4-9 9-9s8 3 8 8H3zM12 15h10c0 2-1 3-3 3h-7z",drop:"M12 2c4 6 7 9 7 13a7 7 0 0 1-14 0c0-4 3-7 7-13z"};
 const CREST={};for(const k in TEAM_SVG)CREST[k]=TEAM_SVG[k].split("currentColor").map(encodeURIComponent);
 const crestUrl=(n,c)=>"data:image/svg+xml,"+CREST[n].join(encodeURIComponent(c));
-const art=(t,c)=>TEAM_SVG[t[0]]?`<div class="crest"><img alt="" src="${crestUrl(t[0],c||t[2])}"></div>`:`<div class="mark" style="--logo:url(&quot;${logoUrl(t[0],t[1])}&quot;)"></div>`;
+const TOON_IMG={"Finn":"img/finn.png","Jake":"img/jake.png","BMO":"img/bmo.png","Marceline":"img/marceline.png","Princesa Jujuba":"img/princesa-jujuba.png","Rei Gelado":"img/rei-gelado.jpg","Ben Tennyson":"img/ben10.png","Gwen Tennyson":"img/gwen.jpg","Heatblast":"img/heatblast.png","XLR8":"img/xlr8.png","Quatro Bra\u00e7os":"img/four-arms.png","Diamondhead":"img/diamondhead.png","Anais":"img/anais.png","Gumball":"img/gumball.png","Darwin":"img/darwin.jpg","Bob Esponja":"img/bob-esponja.png","Homer Simpson":"img/homer.png","Patrick Estrela":"img/patrick.png","Pantera Cor-de-Rosa":"img/pantera-cor-de-rosa.png","Scooby-Doo":"img/scooby-doo.png","Shrek":"img/shrek.png","Pikachu":"img/pikachu.png","Dexter":"img/dexter.png","Johnny Bravo":"img/johnny-bravo.png","Mickey Mouse":"img/mickey.png","Naruto":"img/naruto.png","Pateta":"img/pateta.png","Pernalonga":"img/pernalonga.png","Tom":"img/tom.png","Woody":"img/woody.png"};
+const art=(t,c)=>TEAM_SVG[t[0]]?`<div class="crest"><img alt="" src="${crestUrl(t[0],c||t[2])}"></div>`:TOON_IMG[t[0]]?`<div class="toon-art"><canvas class="toon-cv" data-src="${TOON_IMG[t[0]]}" data-t="${t[2]}" data-g="${c||t[2]}"></canvas></div>`:`<div class="mark" style="--logo:url(&quot;${logoUrl(t[0],t[1])}&quot;)"></div>`;
 const svgUrl=x=>"data:image/svg+xml,"+encodeURIComponent(x);
 const partOf=c=>/camiseta|suéter/.test(c)?"shirt":/vestido/.test(c)?"dress":/boné/.test(c)?"cap":"drop";
 const thick=x=>x.replace(/ stroke-width="[^"]*"/g,"").replace(/stroke="#000"/g,'stroke="#000" stroke-width="2.2"');
@@ -292,6 +313,105 @@ function points(a,b){const p=oklab(a),q=oklab(b),d=Math.hypot(p[0]-q[0],p[1]-q[1
 const hsbText=c=>{const[h,s,b]=rgb2hsv(c);return`H${h} S${s} B${b}`};
 const onColor=c=>{const[r,g,b]=c.map(x=>{x/=255;return x<=.03928?x/12.92:((x+.055)/1.055)**2.4});
   return .2126*r+.7152*g+.0722*b>.27?"#000":"#fff"};
+
+/* ---- Toons: repinta só os pixels da cor que se deve adivinhar ---- */
+const TOON_PX={},isHex=h=>/^#[0-9a-f]{6}$/i.test(h||"");
+const LIN=x=>{x/=255;return x<=.04045?x/12.92:((x+.055)/1.055)**2.4};
+const UNLIN=x=>{const v=x<=.0031308?12.92*x:1.055*x**(1/2.4)-.055;return v<0?0:v>1?255:v*255};
+function rgb2lab(r,g,b){
+  const R=LIN(r),G=LIN(g),B=LIN(b);
+  const l=Math.cbrt(.4122214708*R+.5363325363*G+.0514459929*B),
+        m=Math.cbrt(.2119034982*R+.6806995451*G+.1073969566*B),
+        s=Math.cbrt(.0883024619*R+.2817188376*G+.6299787005*B);
+  return[.2104542553*l+.793617785*m-.0040720468*s,
+         1.9779984951*l-2.428592205*m+.4505937099*s,
+         .0259040371*l+.7827717662*m-.808675766*s];
+}
+function lab2rgb(L,A,B,out){
+  const l_=L+.3963377774*A+.2158037573*B,
+        m_=L-.1055613458*A-.0638541728*B,
+        s_=L-.0894841775*A-1.291485548*B;
+  const l=l_*l_*l_,m=m_*m_*m_,s=s_*s_*s_;
+  out[0]=UNLIN(4.0767416621*l-3.3077115913*m+.2309699292*s);
+  out[1]=UNLIN(-1.2684380046*l+2.6097574011*m-.3413193965*s);
+  out[2]=UNLIN(-.0041960863*l-.7034186147*m+1.707614701*s);
+}
+/* peso do casamento: a diferença de luz conta menos que a de cor, senão sombra e brilho
+   da mesma região saem de fora. Alvo acromático casa por cromaticidade baixa, não por matiz. */
+const TN={wl:.42,d0:.055,d1:.135,kl:.88,kc:.42,rad:.13,sig:.05,bl:.06,bc:.035,pop:.003};
+function toonPrep(src,targetHex,cb){
+  const k=src+"|"+targetHex,hit=TOON_PX[k];
+  if(hit){hit.ready?cb(hit):hit.q.push(cb);return}
+  const e=TOON_PX[k]={ready:false,fail:false,q:[cb]};
+  const done=()=>{e.ready=true;e.q.forEach(f=>f(e));e.q=[]};
+  const im=new Image();
+  im.onload=()=>{
+    const MAX=380,sc=Math.min(1,MAX/Math.max(im.width,im.height));
+    const w=Math.max(1,Math.round(im.width*sc)),h=Math.max(1,Math.round(im.height*sc));
+    const cv=document.createElement("canvas");cv.width=w;cv.height=h;
+    const x=cv.getContext("2d",{willReadFrequently:true});x.drawImage(im,0,0,w,h);
+    let d;try{d=x.getImageData(0,0,w,h)}catch(err){e.fail=true;return done()}
+    const n=w*h,px=d.data,lab=new Float32Array(n*3),wt=new Float32Array(n);
+    const tc=hex2rgb(targetHex),T=rgb2lab(tc[0],tc[1],tc[2]),span=TN.d1-TN.d0;
+    /* O hex do BRANDS descreve a cor, mas a arte quase nunca usa esse tom exato.
+       Então ancoramos na cor mais presente na imagem dentro do mesmo bairro do hex. */
+    const bins=new Map();let opaque=0;
+    for(let i=0;i<n;i++){
+      const o=i*4;if(px[o+3]<8)continue;opaque++;
+      const p=rgb2lab(px[o],px[o+1],px[o+2]);
+      lab[i*3]=p[0];lab[i*3+1]=p[1];lab[i*3+2]=p[2];
+      const key=Math.round(p[0]/TN.bl)+"|"+Math.round(p[1]/TN.bc)+"|"+Math.round(p[2]/TN.bc);
+      let b=bins.get(key);if(!b)bins.set(key,b=[0,0,0,0]);
+      b[0]++;b[1]+=p[0];b[2]+=p[1];b[3]+=p[2];
+    }
+    /* perto pesa muito mais que grande: senão o fundo branco, sempre o maior, leva. */
+    let A=T,best=0;const minPop=opaque*TN.pop,s2=TN.sig*TN.sig,r2=TN.rad*TN.rad;
+    bins.forEach(b=>{
+      if(b[0]<minPop)return;
+      const L=b[1]/b[0],a=b[2]/b[0],bb=b[3]/b[0];
+      const dl=(L-T[0])*TN.wl,da=a-T[1],db=bb-T[2],d2=dl*dl+da*da+db*db;
+      if(d2>r2)return;
+      const sc=b[0]*Math.exp(-d2/s2);
+      if(sc>best){best=sc;A=[L,a,bb]}
+    });
+    for(let i=0;i<n;i++){
+      if(px[i*4+3]<8)continue;
+      const dl=(lab[i*3]-A[0])*TN.wl,da=lab[i*3+1]-A[1],db=lab[i*3+2]-A[2];
+      const dist=Math.sqrt(dl*dl+da*da+db*db);
+      wt[i]=dist<=TN.d0?1:dist>=TN.d1?0:1-(dist-TN.d0)/span;
+    }
+    e.w=w;e.h=h;e.base=px;e.lab=lab;e.wt=wt;e.T=T;e.A=A;done();
+  };
+  im.onerror=()=>{e.fail=true;done()};
+  im.src=src;
+}
+function toonPaint(cv,src,targetHex,guessHex){
+  if(!cv||!src||!isHex(targetHex)||!isHex(guessHex))return;
+  const sig=targetHex+guessHex;if(cv.dataset.cur===sig)return;cv.dataset.cur=sig;
+  toonPrep(src,targetHex,e=>{
+    if(e.fail||cv.dataset.cur!==sig)return;
+    const w=e.w,h=e.h,base=e.base,lab=e.lab,wt=e.wt,A=e.A;
+    if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h}
+    const x=cv.getContext("2d"),out=x.createImageData(w,h),q=out.data;
+    if(guessHex.toUpperCase()===targetHex.toUpperCase()){q.set(base);x.putImageData(out,0,0);return}
+    const gc=hex2rgb(guessHex),G=rgb2lab(gc[0],gc[1],gc[2]),n=w*h,rgb=[0,0,0];
+    for(let i=0;i<n;i++){
+      const o=i*4,k=wt[i];q[o+3]=base[o+3];
+      if(k<=0){q[o]=base[o];q[o+1]=base[o+1];q[o+2]=base[o+2];continue}
+      lab2rgb(G[0]+(lab[i*3]-A[0])*TN.kl,
+              G[1]+(lab[i*3+1]-A[1])*TN.kc,
+              G[2]+(lab[i*3+2]-A[2])*TN.kc,rgb);
+      q[o]=base[o]+(rgb[0]-base[o])*k;
+      q[o+1]=base[o+1]+(rgb[1]-base[o+1])*k;
+      q[o+2]=base[o+2]+(rgb[2]-base[o+2])*k;
+    }
+    x.putImageData(out,0,0);
+  });
+}
+function paintToons(root){
+  if(!root)return;
+  root.querySelectorAll("canvas.toon-cv").forEach(cv=>toonPaint(cv,cv.dataset.src,cv.dataset.t,cv.dataset.g));
+}
 
 /* ---- Sorteio das rodadas: mesma semente, mesmas marcas para todos ---- */
 function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -441,7 +561,9 @@ function lockState(){
 function paint(){
   const c=hsv2rgb(cur.h,cur.s,cur.v),hex=rgb2hex(c),root=$("#round");
   root.style.setProperty("--c",touched?hex:NEUTRAL);root.style.setProperty("--paint",touched?hex:"#c9c9cf");
-  const ci=$("#rCrestImg"),tt=target();if(ci&&tt&&TEAM_SVG[tt[0]]){const want=crestUrl(tt[0],touched?hex:"#c9c9cf");if(ci.getAttribute("src")!==want)ci.setAttribute("src",want)}root.style.setProperty("--on",touched?onColor(c):"#fff");
+  const ci=$("#rCrestImg"),tt=target();if(ci&&tt&&TEAM_SVG[tt[0]]){const want=crestUrl(tt[0],touched?hex:"#c9c9cf");if(ci.getAttribute("src")!==want)ci.setAttribute("src",want)}
+  const tcv=$("#rToonCv");if(tcv&&tt&&TOON_IMG[tt[0]])toonPaint(tcv,TOON_IMG[tt[0]],tt[2],touched?hex:NEUTRAL);
+  root.style.setProperty("--on",touched?onColor(c):"#fff");
   if(touched)pour(hex);
   $("#sH").style.setProperty("--track","linear-gradient(90deg,#f00,#ff0 16.6%,#0f0 33.3%,#0ff 50%,#00f 66.6%,#f0f 83.3%,#f00)");
   $("#sS").style.setProperty("--track",`linear-gradient(90deg,${rgb2hex(hsv2rgb(cur.h,0,cur.v))},${rgb2hex(hsv2rgb(cur.h,100,cur.v))})`);
@@ -456,7 +578,7 @@ function renderRound(){
     $("#sH").value=cur.h;$("#sS").value=cur.s;$("#sV").value=cur.v;fillReset();}
   $("#rNum").textContent=`Rodada ${S.round+1} de ${S.n}`;
   $("#rBrand").textContent=t[0];
-  const team=TEAM_SVG[t[0]];$("#rMark").hidden=!!team;$("#rCrest").hidden=!team;
+  const team=TEAM_SVG[t[0]];const toonSrc=TOON_IMG[t[0]];$("#rMark").hidden=!!team||!!toonSrc;$("#rCrest").hidden=!team;const rToon=$("#rToon");if(rToon){rToon.hidden=!toonSrc;document.getElementById("rTile").classList.toggle("toon-big",!!toonSrc);if(toonSrc&&rToon.dataset.k!==key){rToon.innerHTML='<canvas id="rToonCv" class="toon-cv"></canvas>';rToon.dataset.k=key}}
   if(team){if($("#rCrest").dataset.k!==key){$("#rCrest").innerHTML='<img id="rCrestImg" alt="">';$("#rCrest").dataset.k=key}}else $("#rMark").style.setProperty("--logo",`url("${logoUrl(t[0],t[1])}")`);$("#rName").textContent=t[1];
   const done=lockState();
   ["#sH","#sS","#sV"].forEach(s=>$(s).disabled=done);
@@ -479,6 +601,16 @@ function renderReveal(){
       return`<div class="band" style="background:${r.hex};color:${fg};animation-delay:${(i+1)*.09}s"><div class="tile sm" style="--on:${fg};--c:${r.hex};--paint:${r.hex}">${art(t,r.hex)}</div>${tag}<b>${esc(nameOf(r.id))}</b><span class="p">${r.pts.toFixed(1)}</span><small>${r.hex} · total ${S.totals[r.id].toFixed(1)}</small></div>`}).join("");
     const none=rows.length?"":`<div class="band" style="background:#222;color:#fff"><b>Ninguém cravou</b></div>`;
     $("#vBands").innerHTML=orig+bands+none;
+    const cmp=$("#vCmp"),mine=rows.find(r=>r.id===me),tsrc=TOON_IMG[t[0]];
+    if(cmp){
+      if(tsrc&&mine){
+        cmp.hidden=false;
+        cmp.innerHTML=
+          `<div><h4>Cor real</h4><div class="ph"><canvas class="toon-cv" data-src="${tsrc}" data-t="${t[2]}" data-g="${t[2]}"></canvas></div><div class="sw" style="background:${t[2]}"></div><b>${t[2]}</b><small>${esc(t[1])}</small></div>`+
+          `<div><h4>Seu chute</h4><div class="ph"><canvas class="toon-cv" data-src="${tsrc}" data-t="${t[2]}" data-g="${mine.hex}"></canvas></div><div class="sw" style="background:${mine.hex}"></div><b>${mine.hex}</b><small>${mine.pts.toFixed(1)} pts</small></div>`;
+      }else{cmp.hidden=true;cmp.innerHTML=""}
+    }
+    paintToons($("#vBands"));paintToons(cmp);
   }
   $("#bNext").hidden=!isHost();
   $("#bNext").textContent=S.round+1>=S.n?"Ver resultado":"Próxima";
